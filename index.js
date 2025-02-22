@@ -1,5 +1,6 @@
-import http from 'http';
+import express from 'express';
 
+const app = express();
 let notes = [
 	{
 		id: '1',
@@ -18,11 +19,9 @@ let notes = [
 	},
 ];
 
-const app = http.createServer((request, response) => {
-	response.writeHead(200, { 'Content-Type': 'application/json' });
-	response.end(JSON.stringify(notes));
-});
+app.get('/', (req, res) => res.send('<h1>Hello World!</h1>'));
+
+app.get('/api/notes', (req, res) => res.json(notes));
 
 const PORT = 3001;
-app.listen(PORT);
-console.log(`Server running on PORT ${PORT}`);
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
